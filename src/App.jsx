@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 import Navbar from './components/Navbar';
 import { v4 as uuidv4 } from 'uuid';
-import { FaEdit,  } from "react-icons/fa";
+import { FaEdit } from "react-icons/fa";
 import { AiFillDelete } from "react-icons/ai";
 
 function App() {
@@ -34,6 +36,7 @@ function App() {
     setPriority("low");
     setCategory("General");
     setTags("");
+    toast.success("Todo added successfully!");
   };
 
   const handleEdit = (e, id) => {
@@ -48,7 +51,10 @@ function App() {
 
   const handleDelete = (e, id) => {
     let isConfirmed = window.confirm("Are you sure you want to delete this todo");
-    isConfirmed && setTodos(todos.filter(item => item.id !== id));
+    if (isConfirmed) {
+      setTodos(todos.filter(item => item.id !== id));
+      toast.error("Todo deleted!");
+    }
   };
 
   const handleChange = (e) => {
@@ -97,10 +103,20 @@ function App() {
   const clearCompleted = () => {
     if (window.confirm("Are you sure you want to clear all completed todos?")) {
       setTodos(todos.filter(item => !item.isCompleted));
+      toast.info("Cleared completed todos!");
+    }
+  };
+
+  const notifyReminder = () => {
+    if (Notification.permission === "granted") {
+      new Notification("Todo Reminder", {
+        body: "Don't forget to complete your todo!",
+      });
     }
   };
 
   return (
+    
     <div className={`flex justify-center items-center flex-col min-h-screen ${darkMode ? 'bg-gray-800' : 'bg-gray-100'}`}>
       <Navbar />
       <div className={`container ${darkMode ? 'bg-gray-700' : 'bg-red-200'} m-5 p-5 min-h-[70vh] w-full max-w-4xl rounded-lg shadow-lg`}>
@@ -217,8 +233,10 @@ function App() {
           ))}
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
+  
 }
 
 export default App;
