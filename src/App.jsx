@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import './App.css';
 import Navbar from './components/Navbar';
 import { v4 as uuidv4 } from 'uuid';
-import { FaEdit, FaSearch, FaTrashRestore, FaCalendarDay } from "react-icons/fa";
+import { FaEdit,  } from "react-icons/fa";
 import { AiFillDelete } from "react-icons/ai";
 
 function App() {
