@@ -116,7 +116,6 @@ function App() {
   };
 
   return (
-    
     <div className={`flex justify-center items-center flex-col min-h-screen ${darkMode ? 'bg-gray-800' : 'bg-gray-100'}`}>
       <Navbar />
       <div className={`container ${darkMode ? 'bg-gray-700' : 'bg-red-200'} m-5 p-5 min-h-[70vh] w-full max-w-4xl rounded-lg shadow-lg`}>
